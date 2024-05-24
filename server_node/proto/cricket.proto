@@ -7,7 +7,7 @@ service Cricket {
     rpc GetMatchResult (MatchRequest) returns (MatchResponse);
 
     // Server Streaming
-    rpc GetLiveScore (MatchRequest) returns (MatchScore);
+    rpc GetLiveScore (MatchRequest) returns (stream MatchScore);
 
     // Client Streaming
     rpc UpdatePlayerStats (stream PlayerStat) returns (StatsSummary);
