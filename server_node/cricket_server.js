@@ -1,18 +1,19 @@
 const grpc = require("@grpc/grpc-js")
 const protoLoader = require("@grpc/proto-loader")
 
-const packageDefinition = protoLoader.loadSync("./proto.cricket.proto")
+const packageDefinition = protoLoader.loadSync("./proto/cricket.proto")
 const grpcObject = grpc.loadPackageDefinition(packageDefinition)
+const cricketProto = grpcObject.CricketService
 
-const cricketPackage = grpcObject.Cricket
+import { getMatchResult, getLiveScore, updatePlayerStats, chat } from "./services/cricket_service"
 
 const server = new grpc.Server()
 
 server.addService(cricketPackage.service, {
-    GetMatchResult: (call, callback) => {},
-    GetLiveScore: (call) => {},
-    UpdatePlayerStats: (call, callback) => {},
-    Chat: (call) => {},
+    GetMatchResult: getMatchResult,
+    GetLiveScore: getLiveScore,
+    UpdatePlayerStats: updatePlayerStats,
+    Chat: chat,
 })
 
 const address = '0.0.0.0:500051'
