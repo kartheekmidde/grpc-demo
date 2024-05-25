@@ -16,7 +16,7 @@ server.addService(cricketProto.service, {
     Chat: chat,
 })
 
-const address = '0.0.0.0:500051'
+const address = '0.0.0.0:50051'
 
 server.bindAsync(address, grpc.ServerCredentials.createInsecure(), (err, port) => {
     if (err) {
