@@ -68,7 +68,7 @@ export function updatePlayerStats(call, callback) {
     })
 }
 
-export function chat(chat) {
+export function chat(call) {
     call.on('data', (chatMessage) => {
         console.log(`Received message from ${chatMessage.userid}: ${chatMessage.message}`)
         call.write({ 

@@ -9,7 +9,7 @@ import { getMatchResult, getLiveScore, updatePlayerStats, chat } from "./service
 
 const server = new grpc.Server()
 
-server.addService(cricketPackage.service, {
+server.addService(cricketProto.service, {
     GetMatchResult: getMatchResult,
     GetLiveScore: getLiveScore,
     UpdatePlayerStats: updatePlayerStats,
@@ -19,8 +19,8 @@ server.addService(cricketPackage.service, {
 const address = '0.0.0.0:500051'
 
 server.bindAsync(address, grpc.ServerCredentials.createInsecure(), (err, port) => {
-    if (error) {
-        console.log(`Server error ${error}`)
+    if (err) {
+        console.log(`Server error ${err}`)
         return;
     }
     console.log(`Server running at ${address}`)
