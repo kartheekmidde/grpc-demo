@@ -1,11 +1,17 @@
 const grpc = require("@grpc/grpc-js")
 const protoLoader = require("@grpc/proto-loader")
 
-const packageDefinition = protoLoader.loadSync("./proto/cricket.proto")
-const grpcObject = grpc.loadPackageDefinition(packageDefinition)
-const cricketProto = grpcObject.CricketService
+const packageDefinition = protoLoader.loadSync("./proto/cricket.proto", {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
+})
+const protoDescriptor = grpc.loadPackageDefinition(packageDefinition)
+const cricketProto = protoDescriptor.cricketPackage.CricketService
 
-import { getMatchResult, getLiveScore, updatePlayerStats, chat } from "./services/cricket_service"
+const { getMatchResult, getLiveScore, updatePlayerStats, chat } = require("./services/cricket_server_service")
 
 const server = new grpc.Server()
 
@@ -24,5 +30,4 @@ server.bindAsync(address, grpc.ServerCredentials.createInsecure(), (err, port) =
         return;
     }
     console.log(`Server running at ${address}`)
-    server.start()
 })

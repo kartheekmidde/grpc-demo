@@ -45,7 +45,7 @@ message StatsSummary {
 }
 
 message ChatMessage {
-    string userid = 1;
+    string user_id = 1;
     string message = 2;
     string timestamp = 3;
 }
