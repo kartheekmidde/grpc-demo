@@ -1,5 +1,5 @@
 {
-  "name": "server_node",
+  "name": "grpc_node",
   "version": "1.0.0",
   "description": "gRPC server implmentation in Node",
   "main": "index.js",

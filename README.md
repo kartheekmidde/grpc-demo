@@ -36,3 +36,7 @@ Client Server setup using grpc/node
 - `@grpc/proto-loader`
     - Loads .proto files and converts them into JS
     - Parses .proto files to generate the necessary service and message definitions used by @grpc/grpc-js
+
+## Run the application
+- Hit `node cricket_server.js` on first terminal
+- Hit `node cricket_client.js` on second terminal to see the messages interchanged using grpc
