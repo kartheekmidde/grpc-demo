@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package cricketPackage;
+
+option php_namespace = "App\\Grpc\\CricketPackage";
+
+service CricketService {
+    // Unary
+    rpc GetMatchResult (MatchRequest) returns (MatchResponse);
+
+    // Server Streaming
+    rpc GetLiveScore (MatchRequest) returns (stream MatchScore);
+
+    // Client Streaming
+    rpc UpdatePlayerStats (stream PlayerStat) returns (StatsSummary);
+
+    // Bidirectional Streaming
+    rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+}
+
+message MatchRequest {
+    int32 match_id = 1;
+}
+
+message MatchResponse {
+    int32 match_id = 1;
+    string team1 = 2;
+    string team2 = 3;
+    string result = 4;
+}
+
+message MatchScore {
+    string score = 1;
+    string timestamp = 2;
+}
+
+message PlayerStat {
+    int32 player_id = 1;
+    string name = 2;
+    int32 runs = 3;
+    int32 wickets = 4;
+}
+
+message StatsSummary {
+    int32 total_runs_scored = 1;
+    int32 total_wickets_taken = 2;
+}
+
+message ChatMessage {
+    string user_id = 1;
+    string message = 2;
+    string timestamp = 3;
+}

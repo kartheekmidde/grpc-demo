@@ -33,6 +33,7 @@ Client Server setup using grpc/node
 - `message` - defines the data structures, similar to classes in oop
 - `service` - defined the RPC services and methods for RPC
 
+# Node 
 ## Packages required
 
 - `@grpc/grpc-js`
@@ -42,7 +43,7 @@ Client Server setup using grpc/node
   - Loads .proto files and converts them into JS
   - Parses .proto files to generate the necessary service and message definitions used by @grpc/grpc-js
 
-## Run the application
+## Run the server
 
 - Make sure `node` and `npm` are installed in your system
 - Run `sudo npm i` in the folder where package.json is to install the node packages
