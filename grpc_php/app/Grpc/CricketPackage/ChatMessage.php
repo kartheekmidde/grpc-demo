@@ -38,7 +38,7 @@ class ChatMessage extends \Google\Protobuf\Internal\Message
      * }
      */
     public function __construct($data = NULL) {
-        \GPBMetadata\Cricket::initOnce();
+        \App\Grpc\GPBMetadata\Cricket::initOnce();
         parent::__construct($data);
     }
 

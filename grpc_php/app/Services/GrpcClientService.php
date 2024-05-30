@@ -5,6 +5,7 @@ namespace App\Services;
 use Grpc\ChannelCredentials;
 use App\Grpc\CricketPackage\CricketServiceClient;
 use App\Grpc\CricketPackage\MatchRequest;
+use Illuminate\Support\Facades\Log;
 
 class GrpcClientService
 {
@@ -13,7 +14,7 @@ class GrpcClientService
     public function __construct()
     {
         $this->client = new CricketServiceClient('0.0.0.0:50051', [
-            'credentials' => ChannelCredentials::createInsecure(), 
+            'credentials' => ChannelCredentials::createInsecure(),
         ]);
     }
 
@@ -29,5 +30,37 @@ class GrpcClientService
         }
 
         return $response;
+    }
+
+    // To consolidate the stream as single response
+//    public function getLiveScore($matchId)
+//    {
+//        $request = new MatchRequest();
+//        $request->setMatchId($matchId);
+//
+//        $call = $this->client->GetLiveScore($request);
+//        $responses = [];
+//
+//        foreach ($call->responses() as $response){
+//            $responses[] = [
+//                'score' => $response->getScore(),
+//                'timestamp' => $response->getTimestamp()
+//            ];
+//        }
+//
+//        return $responses;
+//    }
+
+    // To handle stream as SSE
+    public function getLiveScore($matchId, $callback)
+    {
+        $request = new MatchRequest();
+        $request->setMatchId($matchId);
+
+        $call = $this->client->GetLiveScore($request);
+
+        foreach ($call->responses() as $response) {
+            $callback($response->getScore(), $response->getTimestamp());
+        }
     }
 }

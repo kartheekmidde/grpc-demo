@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/match-result/{id}', [ GrpcController::class, 'getMatchResult']);
+
+Route::get('/live-score', [ GrpcController::class, 'getLiveScore']);
